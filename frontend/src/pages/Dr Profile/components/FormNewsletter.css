@@ -1,0 +1,52 @@
+.star-icon {
+    height: 16px;
+    width: 16px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: none;
+    min-height: 16px;
+  }
+  .button1 {
+    align-self: stretch;
+    position: relative;
+    line-height: 100%;
+  }
+  .button,
+  .x-icon {
+    overflow: hidden;
+    display: none;
+  }
+  .x-icon {
+    height: 16px;
+    width: 16px;
+    position: relative;
+    flex-shrink: 0;
+    min-height: 16px;
+  }
+  .button {
+    align-self: stretch;
+    border-radius: var(--radius-200);
+    background-color: var(--background-brand-default);
+    border: 1px solid var(--background-brand-default);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-300) var(--padding-2xs);
+    gap: var(--space-200);
+  }
+  .form-newsletter {
+    width: 338px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-300);
+    max-width: 100%;
+    text-align: left;
+    font-size: var(--single-line-body-base-size);
+    color: var(--text-brand-on-brand);
+    font-family: var(--single-line-body-base);
+  }
+  

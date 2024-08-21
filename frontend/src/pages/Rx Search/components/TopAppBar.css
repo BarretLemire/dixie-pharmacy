@@ -1,0 +1,29 @@
+.headline {
+    text-decoration: none;
+    flex: 1;
+    position: relative;
+    line-height: 28px;
+    color: inherit;
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .top-app-bar {
+    flex: 1;
+    background-color: var(--schemes-surface);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--padding-3xl-5) var(--padding-9xs);
+    box-sizing: border-box;
+    gap: var(--gap-7xs);
+    max-width: 100%;
+    flex-shrink: 0;
+    z-index: 1;
+    text-align: center;
+    font-size: var(--m3-title-large-size);
+    color: var(--schemes-on-surface);
+    font-family: var(--m3-title-large);
+  }
+  

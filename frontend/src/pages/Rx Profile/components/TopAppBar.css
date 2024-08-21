@@ -1,0 +1,158 @@
+.icon {
+    height: 24px;
+    width: 24px;
+    position: relative;
+  }
+  .container,
+  .leading-icon,
+  .state-layer {
+    align-items: center;
+    justify-content: center;
+  }
+  .state-layer {
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding-5xs);
+  }
+  .container,
+  .leading-icon {
+    display: none;
+  }
+  .container {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--br-81xl);
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-direction: row;
+  }
+  .leading-icon {
+    height: 48px;
+    width: 48px;
+    flex-direction: column;
+  }
+  .headline {
+    margin: 0;
+    flex: 1;
+    position: relative;
+    font-size: inherit;
+    line-height: 28px;
+    font-weight: 400;
+    font-family: inherit;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .icon1 {
+    height: 24px;
+    width: 24px;
+    position: relative;
+  }
+  .state-layer1 {
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding-5xs);
+  }
+  .container1,
+  .state-layer1,
+  .trailing-icon-1 {
+    align-items: center;
+    justify-content: center;
+  }
+  .container1 {
+    border-radius: var(--br-81xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    padding: 0 var(--padding-9xs);
+  }
+  .trailing-icon-1 {
+    height: 48px;
+    flex-direction: column;
+  }
+  .icon2 {
+    height: 24px;
+    width: 24px;
+    position: relative;
+  }
+  .state-layer2 {
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding-5xs);
+  }
+  .container2,
+  .state-layer2,
+  .trailing-icon-2 {
+    align-items: center;
+    justify-content: center;
+  }
+  .container2 {
+    border-radius: var(--br-81xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    padding: 0 var(--padding-9xs);
+  }
+  .trailing-icon-2 {
+    height: 48px;
+    flex-direction: column;
+  }
+  .icon3 {
+    height: 24px;
+    width: 24px;
+    position: relative;
+  }
+  .container3,
+  .state-layer3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs);
+  }
+  .container3 {
+    border-radius: var(--br-81xl);
+    overflow: hidden;
+    padding: 0 var(--padding-9xs);
+  }
+  .trailing-icon,
+  .trailing-icon-3 {
+    height: 48px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .trailing-icon {
+    width: 144px;
+    display: none;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .top-app-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--schemes-surface);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-13xl-5) var(--padding-37xl);
+    box-sizing: border-box;
+    gap: var(--gap-9xs);
+    max-width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: var(--m3-title-large-size);
+    color: var(--schemes-on-surface);
+    font-family: var(--m3-label-large);
+  }
+  @media screen and (max-width: 1200px) {
+    .top-app-bar {
+      padding-left: var(--padding-9xl);
+      padding-right: var(--padding-9xl);
+      box-sizing: border-box;
+    }
+  }
+  

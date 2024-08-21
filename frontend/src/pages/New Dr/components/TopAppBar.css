@@ -1,0 +1,36 @@
+.headline {
+    text-decoration: none;
+    flex: 1;
+    position: relative;
+    line-height: 28px;
+    color: inherit;
+    display: inline-block;
+    min-width: 127px;
+    max-width: 100%;
+  }
+  .top-app-bar {
+    width: 1440px;
+    background-color: var(--schemes-surface);
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 22.5px var(--padding-9xs);
+    box-sizing: border-box;
+    gap: 6px;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    font-size: var(--m3-title-large-size);
+    color: var(--schemes-on-surface);
+    font-family: var(--m3-title-large);
+  }
+  @media screen and (max-width: 450px) {
+    .headline {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  

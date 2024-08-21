@@ -1,0 +1,20 @@
+.form-container,
+.form-duplicate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.form-duplicate {
+  align-self: stretch;
+  gap: var(--gap-lgi);
+}
+.form-container {
+  flex: 1;
+  gap: var(--gap-6xl);
+  text-align: left;
+  font-size: var(--single-line-body-base-size);
+  color: var(--text-brand-on-brand);
+  font-family: var(--single-line-body-base);
+}

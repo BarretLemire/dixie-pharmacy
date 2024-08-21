@@ -1,0 +1,24 @@
+.desktop-1,
+.desktop-1-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.desktop-1-inner {
+  width: 715px;
+  flex-direction: row;
+  padding: 0 36px;
+  max-width: 100%;
+}
+.desktop-1 {
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  flex-direction: column;
+  padding: 0 0 21px;
+  gap: var(--gap-3xl);
+  line-height: normal;
+  letter-spacing: normal;
+}

@@ -1,0 +1,10 @@
+.form-newsletter-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--gap-7xl);
+    max-width: 100%;
+  }
+  

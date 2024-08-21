@@ -1,0 +1,34 @@
+.hello-world {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: var(--single-line-body-base);
+    font-size: var(--single-line-body-base-size);
+    background-color: transparent;
+    height: 16px;
+    flex: 1;
+    position: relative;
+    line-height: 100%;
+    color: var(--text-default-default);
+    text-align: left;
+    display: inline-block;
+    min-width: 184px;
+    padding: 0;
+  }
+  .input {
+    height: 41px;
+    flex: 1;
+    border-radius: var(--radius-200);
+    background-color: var(--color-lavenderblush);
+    border: 1px solid var(--border-default-tertiary);
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--space-300) var(--padding-mini) var(--space-300)
+      var(--space-400);
+    max-width: 100%;
+  }
+  

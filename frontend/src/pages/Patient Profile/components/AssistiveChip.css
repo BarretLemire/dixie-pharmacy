@@ -1,0 +1,22 @@
+.assistive-chip {
+    border: 1px solid var(--schemes-outline);
+    background-color: var(--color-lavenderblush);
+    height: 88px;
+    width: auto;
+    outline: 0;
+    flex: 1;
+    border-radius: var(--br-5xs);
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-15xl) var(--padding-53xl);
+    font-family: var(--font-roboto);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-100);
+    max-height: 90px;
+  }
+  

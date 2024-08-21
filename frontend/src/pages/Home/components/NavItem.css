@@ -1,0 +1,12 @@
+/* Special Icon and State Layer Styles */
+.nav-item {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.nav-icon {
+  height: 24px;
+  width: 24px;
+}
