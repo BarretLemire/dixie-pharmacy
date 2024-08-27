@@ -1,35 +1,56 @@
-import { FunctionComponent } from "react";
-import TextField from "./components/TextField";
-import "./Desktop.css";
-import React from "react";
+import React, { useState } from 'react';
+import './Desktop.css';
+import trashIcon from "../../assets/trash.svg";
+import saveIcon from "../../assets/save.svg";
 
-const Desktop: FunctionComponent = () => {
+const AddNewDoctor: React.FC = () => {
+  const [formValues, setFormValues] = useState({
+    lastName: '',
+    firstName: '',
+    doctorType: '',
+    address: '',
+    phoneNumber: '',
+    dea: '',
+    npi: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
   return (
-    <div className="desktop-1">
-      <TextField
-        supportingText="First Name"
-        showSupportingText
-        icon="/icon.svg"
-      />
-      <TextField
-        supportingText="Doctor Type"
-        showSupportingText
-        icon="/icon-1.svg"
-      />
-      <TextField
-        supportingText="Address"
-        showSupportingText
-        icon="/icon-2.svg"
-      />
-      <TextField
-        supportingText="Phone Number"
-        showSupportingText
-        icon="/icon-3.svg"
-      />
-      <TextField supportingText="DEA" showSupportingText icon="/icon-4.svg" />
-      <TextField supportingText="NPI" showSupportingText icon="/icon-5.svg" />
+    <div className="add-new-doctor-container">
+      <header className="header">
+        <button className="cancel-button">
+          <img src={trashIcon} className="cancel-icon" alt="Cancel" />
+          Cancel
+        </button>
+        <h1 className="title">Add New Doctor</h1>
+        <button className="save-button">
+          <img src={saveIcon} className="save-icon" alt="Save" />
+          Save
+        </button>
+      </header>
+      <form className="form">
+        {['LastName', 'FirstName', 'DoctorType', 'Address', 'PhoneNumber', 'DEA', 'NPI'].map((field, index) => (
+          <div className="form-group" key={index}>
+            <input
+              type="text"
+              name={field}
+              value={formValues[field]}
+              onChange={handleInputChange}
+              className="text-field"
+              placeholder={field.replace(/([A-Z])/g, ' $1').trim()} 
+            />
+          </div>
+        ))}
+      </form>
     </div>
   );
 };
 
-export default Desktop;
+export default AddNewDoctor;

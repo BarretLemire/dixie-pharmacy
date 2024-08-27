@@ -12,12 +12,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 0 8px;
-  box-sizing: border-box;
+  padding: 8px;
   gap: 8px;
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
+  max-width: 100%;
   font-size: var(--m3-label-medium-size);
   color: var(--schemes-on-surface);
   font-family: var(--m3-label-medium);

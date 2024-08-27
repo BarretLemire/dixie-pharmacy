@@ -1,45 +1,56 @@
-import { FunctionComponent } from "react";
-import FrameComponent from "./components/FrameComponent";
-import AssistiveChip from "./components/AssistiveChip";
-import "./Desktop.css";
-import React from "react";
+import React, { useState } from 'react';
+import './Desktop.css';
+import trashIcon from "../../assets/trash.svg";
+import saveIcon from "../../assets/save.svg";
 
-const Desktop: FunctionComponent = () => {
+const AddNewDoctor: React.FC = () => {
+  const [formValues, setFormValues] = useState({
+    lastName: '',
+    firstName: '',
+    doctorType: '',
+    address: '',
+    phoneNumber: '',
+    dea: '',
+    npi: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
   return (
-    <div className="desktop-1">
-      <div className="desktop-1-inner">
-        <FrameComponent
-          star="/star.svg"
-          star1="/star.svg"
-          star2="/star.svg"
-          star3="/star.svg"
-          star4="/star.svg"
-          x="/x.svg"
-          x1="/x.svg"
-          x2="/x.svg"
-          x3="/x.svg"
-          x4="/x.svg"
-        />
-      </div>
-      <div className="frame-parent">
-        <FrameComponent
-          star="/star.svg"
-          star1="/star.svg"
-          star2="/star.svg"
-          star3="/star.svg"
-          star4="/star.svg"
-          x="/x.svg"
-          x1="/x.svg"
-          x2="/x.svg"
-          x3="/x.svg"
-          x4="/x.svg"
-        />
-        <div className="assistive-chip-wrapper">
-          <AssistiveChip />
-        </div>
-      </div>
+    <div className="add-new-doctor-container">
+      <header className="header">
+        <button className="cancel-button">
+          <img src={trashIcon} className="cancel-icon" alt="Cancel" />
+          Cancel
+        </button>
+        <h1 className="title">Patient Profile</h1>
+        <button className="save-button">
+          <img src={saveIcon} className="save-icon" alt="Save" />
+          Save
+        </button>
+      </header>
+      <form className="form">
+        {['Name', 'Strength', 'NDC', 'Expiration', 'Lot Number'].map((field, index) => (
+          <div className="form-group" key={index}>
+            <input
+              type="text"
+              name={field}
+              value={formValues[field]}
+              onChange={handleInputChange}
+              className="text-field"
+              placeholder={field.replace(/([A-Z])/g, ' $1').trim()} 
+            />
+          </div>
+        ))}
+      </form>
     </div>
   );
 };
 
-export default Desktop;
+export default AddNewDoctor;

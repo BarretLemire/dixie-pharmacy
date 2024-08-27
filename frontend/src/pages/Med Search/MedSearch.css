@@ -1,0 +1,26 @@
+.search-bar {
+  display: flex;
+  justify-content: space-between; /* Pushes the button to the opposite side */
+  align-items: center; /* Vertically centers the items */
+  padding: 10px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px; /* Adds space between the icon and the input field */
+}
+
+.custom-button {
+  /* Optional: Add margin or padding to position the button */
+  background-color: #d7bef2 !important;
+}
+
+.custom-button:hover {
+    background-color: #c090f3 !important;
+}

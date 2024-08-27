@@ -13,6 +13,9 @@ const NavigationBar: FC<NavigationBarType> = ({ className = "nav-bar" }) => {
   return (
     <div className={`navigation-bar ${className}`}>
       <NavItem icon="/src/assets/account-circle.svg" labelText="User" />
+      <Link to="/">
+        <NavItem icon="/src/assets/home.svg" labelText="Home" />
+      </Link>
       <Link to="/rxsearch">
         <NavItem icon="/src/assets/pill.svg" labelText="Rx" />
       </Link>
@@ -22,7 +25,7 @@ const NavigationBar: FC<NavigationBarType> = ({ className = "nav-bar" }) => {
       <Link to="/drsearch">
         <NavItem icon="/src/assets/stethoscope.svg" labelText="Dr." />
       </Link>
-      <Link to="/medicationsearch">
+      <Link to="/medsearch">
         <NavItem icon="/src/assets/kit.svg" labelText="Medication" />
       </Link>
     </div>

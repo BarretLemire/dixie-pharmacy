@@ -1,63 +1,95 @@
-.text-field-parent {
-    width: 513px;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 24px;
-    min-width: 513px;
-    max-width: 100%;
-  }
-  .desktop-1,
-  .text-field-group,
-  .text-field-parent {
-    display: flex;
-    align-items: flex-start;
-  }
-  .text-field-group {
-    width: 497px;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 27px;
-    min-width: 497px;
-    max-width: 100%;
-  }
-  .desktop-1 {
-    width: 100%;
-    position: relative;
-    background-color: #fff;
-    overflow: hidden;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 431px 118px 216px 93px;
-    box-sizing: border-box;
-    line-height: normal;
-    letter-spacing: normal;
-    gap: 20px;
-  }
-  @media screen and (max-width: 1250px) {
-    .text-field-group,
-    .text-field-parent {
-      flex: 1;
-    }
-    .desktop-1 {
-      flex-wrap: wrap;
-    }
-  }
-  @media screen and (max-width: 750px) {
-    .text-field-group,
-    .text-field-parent {
-      min-width: 100%;
-    }
-    .desktop-1 {
-      padding-left: 46px;
-      padding-right: 59px;
-      box-sizing: border-box;
-    }
-  }
-  @media screen and (max-width: 450px) {
-    .desktop-1 {
-      padding-left: var(--padding-xl);
-      padding-right: var(--padding-xl);
-      box-sizing: border-box;
-    }
-  }
-  
+.add-patient-container {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fef7ff;
+}
+
+.add-patient-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fef7ff;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo-container img {
+  width: 150px;
+  height: auto;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.header-button .button-icon {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.form-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+.tab-button.active {
+  background-color: #d0c8ff;
+}
+
+.form-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #e6e6e6;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.close-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
