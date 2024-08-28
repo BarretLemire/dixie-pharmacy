@@ -1,24 +1,62 @@
-.desktop-1,
-.desktop-1-inner {
+.current-rx {
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rx-form {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-sizing: border-box;
-}
-.desktop-1-inner {
-  width: 715px;
-  flex-direction: row;
-  padding: 0 36px;
-  max-width: 100%;
-}
-.desktop-1 {
-  width: 100%;
-  position: relative;
-  background-color: #fff;
-  overflow: hidden;
   flex-direction: column;
-  padding: 0 0 21px;
-  gap: var(--gap-3xl);
-  line-height: normal;
-  letter-spacing: normal;
+  gap: 10px;
+}
+
+.rx-form input, 
+.rx-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f3e9f3;
+}
+
+.rx-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.rx-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rx-actions .delete {
+  background-color: #f3e9f3;
+  color: #555;
+}
+
+.rx-actions .edit {
+  background-color: #f3e9f3;
+  color: #555;
+}
+
+.rx-actions .save {
+  background-color: #f3e9f3;
+  color: #555;
+}
+
+.rx-images {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.image-box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
 }

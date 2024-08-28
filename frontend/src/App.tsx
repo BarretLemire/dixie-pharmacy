@@ -34,7 +34,7 @@ const App: React.FC = () => {
         <Route path="/newrx" element={<NewRx />} />
         <Route path="/patientprofile" element={<PatientProfile />} />
         <Route path="/patientsearch" element={<PatientSearch />} />
-        <Route path="/rxprofile" element={<RxProfile />} />
+        <Route path="/rxprofile/:rx-number" element={<RxProfile />} />
         <Route path="/rxsearch" element={<RxSearch />} />
         {/* Add other routes here */}
       </Routes>

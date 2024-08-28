@@ -3,23 +3,56 @@
   justify-content: space-between; /* Pushes the button to the opposite side */
   align-items: center; /* Vertically centers the items */
   padding: 10px;
+  background-color: #f2eefc; /* Optional: Add background color for better visibility */
+  border-radius: 12px; /* Optional: Add rounded corners */
+  margin-bottom: 20px; /* Adds space below the search bar */
 }
 
 .search {
   display: flex;
   align-items: center;
+  flex: 1; /* Takes up remaining space */
 }
 
 .icon {
   width: 24px;
   height: 24px;
   margin-left: 8px; /* Adds space between the icon and the input field */
+  cursor: pointer; /* Changes cursor to pointer when hovering over the icon */
 }
 
 .custom-button {
   background-color: #d7bef2 !important;
+  margin-left: 16px; /* Adds space between the button and the search input */
+  padding: 10px 20px; /* Adjust padding for better appearance */
+  border-radius: 8px; /* Add rounded corners to match the overall design */
 }
 
 .custom-button:hover {
   background-color: #c090f3 !important;
+}
+
+/* Styles for the results section */
+.results {
+  margin-top: 20px; /* Space between search bar and results */
+  padding: 10px;
+  background-color: #ffffff; /* White background for the results */
+  border: 1px solid #ccc; /* Light border around the results */
+  border-radius: 8px; /* Rounded corners for the results container */
+  max-height: 300px; /* Optional: Limit height with overflow */
+  overflow-y: auto; /* Scroll if the content exceeds max height */
+}
+
+.results:hover {
+  background-color: #ccc;
+}
+
+/* Additional styling for individual results (example) */
+.result-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee; /* Light border between results */
+}
+
+.result-item:last-child {
+  border-bottom: none; /* Remove border for the last item */
 }
