@@ -9,7 +9,6 @@ interface Perscription {
   first_name: string;
   last_name: string;
   date_of_birth: string;
-  directions: string;
 
 
   // Add more fields as per your API response
@@ -84,7 +83,6 @@ const RxSearch: React.FC = () => {
                 <p><strong>First Name:</strong> {result.first_name}</p>
                 <p><strong>Last Name:</strong> {result.last_name}</p>
                 <p><strong>DOB:</strong> {result.date_of_birth}</p>
-                <p><strong>Directions:</strong> {result.directions}</p>
               </div>
             ))
           ) : (
