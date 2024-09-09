@@ -1,50 +1,60 @@
 import React, { useState } from 'react';
 import './Desktop.css';
-import trashIcon from "../../assets/trash.svg";
 import saveIcon from "../../assets/save.svg";
 
-const AddNewDoctor: React.FC = () => {
-  const [formValues, setFormValues] = useState({
-    lastName: '',
-    firstName: '',
-    doctorType: '',
-    address: '',
-    phoneNumber: '',
-    dea: '',
-    npi: '',
+const NewMed: React.FC = () => {
+  const [medication, setMedication] = useState<Medication>({
+    id: 0, // This won't be sent to backend usually, backend assigns ID
+    name: "",
+    strength: "",
+    ndc: "",
+    expiration: "",
+    lot_number: "",
+    dea_schedule: "",
+    drug_class: ""
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
+    setMedication({ ...medication, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch('http://127.0.0.1:8000/rx-items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(medication),
     });
+
+    if (response.ok) {
+      console.log("Medication added successfully");
+      // Handle successful addition here
+    } else {
+      console.error("Failed to add medication");
+    }
   };
 
   return (
-    <div className="add-new-doctor-container">
+    <div className="add-new-med-container">
       <header className="header">
-        <button className="cancel-button">
-          <img src={trashIcon} className="cancel-icon" alt="Cancel" />
-          Cancel
-        </button>
-        <h1 className="title">Add New Medication</h1>
-        <button className="save-button">
-          <img src={saveIcon} className="save-icon" alt="Save" />
+        <button className="header-button" onClick={handleSubmit}>
+          <img src={saveIcon} alt="Save" className="button-icon" />
           Save
         </button>
       </header>
-      <form className="form">
-        {['Name', 'Strength', 'NDC', 'Expiration', 'Lot Number'].map((field, index) => (
-          <div className="form-group" key={index}>
+      <form onSubmit={handleSubmit} className="form">
+        {Object.entries(medication).map(([key, value]) => (
+          <div key={key} className="form-group">
+            <label>{key.replace(/_/g, ' ')}</label>
             <input
               type="text"
-              name={field}
-              value={formValues[field]}
+              name={key}
+              placeholder={key.replace(/_/g, ' ')}
+              value={value}
               onChange={handleInputChange}
-              className="text-field"
-              placeholder={field.replace(/([A-Z])/g, ' $1').trim()} 
             />
           </div>
         ))}
@@ -53,4 +63,4 @@ const AddNewDoctor: React.FC = () => {
   );
 };
 
-export default AddNewDoctor;
+export default NewMed;

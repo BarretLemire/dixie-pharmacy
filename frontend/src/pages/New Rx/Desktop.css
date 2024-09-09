@@ -79,7 +79,7 @@
 
 .save-button {
   background-color: #c8a4f8;
-  color: white;
+  color: rgb(42, 41, 41);
 }
 
 .button-icon {
@@ -104,4 +104,45 @@
   justify-content: center;
   margin-bottom: 20px;
   background-color: whitesmoke;
+}
+
+.suggestions-list {
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  list-style-type: none;
+  padding: 0;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+ .patient-list-item {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.patient-list-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styling for the clear button */
+.clear-button:hover {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: red;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.clear-button:hover {
+  color: darkred;
 }

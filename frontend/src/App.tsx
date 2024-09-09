@@ -24,15 +24,15 @@ const App: React.FC = () => {
       <NavigationBar className="nav-bar" />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/drprofile" element={<DrProfile />} />
+        <Route path="/drprofile/:drId" element={<DrProfile />} />
         <Route path="/drsearch" element={<DrSearch />} />
         <Route path="/newdr" element={<NewDr />} />
-        <Route path="/medprofile" element={<MedProfile />} />
+        <Route path="/medprofile/:medId" element={<MedProfile />} />
         <Route path="/medsearch" element={<MedSearch />} />
         <Route path="/newmed" element={<NewMed />} />
         <Route path="/newpatient" element={<NewPatient />} />
         <Route path="/newrx" element={<NewRx />} />
-        <Route path="/patientprofile" element={<PatientProfile />} />
+        <Route path="/patientprofile/:patientId" element={<PatientProfile />} />
         <Route path="/patientsearch" element={<PatientSearch />} />
         <Route path="/rxprofile/:rx_number" element={<RxProfile />} />
         <Route path="/rxsearch" element={<RxSearch />} />
