@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Desktop.css"; // Assuming you're using a separate CSS file
 import dixieLogo from "../../assets/dixie-logo-1.svg"; // Adjust the path as needed
@@ -14,7 +14,6 @@ const NewRxPage: React.FC = () => {
   const [patientSearch, setPatientSearch] = useState('');
   const [filteredPatients, setFilteredPatients] = useState<{ id: number; name: string }[]>([]);
   const [selectedPatientId, setSelectedPatientId] = useState<number | null>(null);
-
   
   // State for form fields
   const [prescriberId, setPrescriberId] = useState<number>(0);
@@ -25,7 +24,6 @@ const NewRxPage: React.FC = () => {
   const [refills, setRefills] = useState<number>(0);
   const [techInitials, setTechInitials] = useState<string>("");
   const [prescribedDate, setPrescribedDate] = useState<string>('');
-
 
   // Fetch patient data from API
   useEffect(() => {
@@ -66,7 +64,12 @@ const NewRxPage: React.FC = () => {
   const handleClearPatient = () => {
     setSelectedPatientId(null);
     setPatientSearch(""); // Clear the search field
-  }
+  };
+
+  // Delete a patient from the list
+  const handleDeletePatient = (patientId: number) => {
+    setPatients((prevPatients) => prevPatients.filter(patient => patient.id !== patientId));
+  };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -104,7 +107,6 @@ const NewRxPage: React.FC = () => {
     }
   };
 
-  
   const handleCancelClick = () => {
     navigate("/rxsearch");
   };
@@ -126,7 +128,7 @@ const NewRxPage: React.FC = () => {
                 type="text"
                 placeholder="First Name Last Name"
                 value={patientSearch} 
-                onChange={(e) => setSelectedPatientId(parseInt(e.target.value))} 
+                onChange={(e) => setPatientSearch(e.target.value)} 
               />
               {patientSearch && (
                 <button className="clear-button" onClick={handleClearPatient}>
@@ -134,15 +136,22 @@ const NewRxPage: React.FC = () => {
                 </button>
               )}
             </div>
-            <div>
+            {/* Running list of filtered patients */}
+            <div className="running-list-container">
               {filteredPatients.map((patient) => (
-                <div key={patient.id} onClick={() => handlePatientSelect(patient.id, patient.name)}>
-                  {patient.name}
-                  </div>
+                <div key={patient.id} className="patient-item">
+                  <span onClick={() => handlePatientSelect(patient.id, patient.name)}>
+                    {patient.name}
+                  </span>
+                  <button className="delete-button" onClick={() => handleDeletePatient(patient.id)}>
+                    <img src={trashIcon} alt="Delete" className="button-icon" />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
           
+          {/* Other form fields */}
           <div className="form-group">
             <label>Prescriber Id</label>
             <div className="input-icon">

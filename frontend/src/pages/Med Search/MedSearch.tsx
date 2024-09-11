@@ -39,36 +39,42 @@ const MedSearch: React.FC = () => {
   );
 
   return (
-    <div className="search-bar">
-      <div className="search">
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          fullWidth
-          label="Medication"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <img
-          className="icon"
-          loading="lazy"
-          alt="Search Icon"
-          src="/src/assets/search.svg"
-        />
+    <div className="med-search-container">
+      <div className="search-bar">
+        <div className="search">
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            fullWidth
+            label="Medication"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <img
+            className="icon"
+            loading="lazy"
+            alt="Search Icon"
+            src="/src/assets/search.svg"
+          />
+        </div>
+        <Button 
+          variant="contained" 
+          className="custom-button"
+          onClick={() => navigate("/newmed")}
+        >
+          Add Med
+        </Button>
       </div>
-      <Button 
-        variant="contained" 
-        className="custom-button"
-        onClick={() => navigate("/newmed")}
-      >
-        Add Med
-      </Button>
       <div className="search-results">
-        {filteredMedications.map((med) => (
-          <div key={med.id} className="result-item" onClick={() => navigate(`/medprofile/${med.id}`)}>
-            {med.name} - {med.strength}
-          </div>
-        ))}
+        {filteredMedications.length > 0 ? (
+          filteredMedications.map((med) => (
+            <div key={med.id} className="result-item" onClick={() => navigate(`/medprofile/${med.id}`)}>
+              {med.name} - {med.strength}
+            </div>
+          ))
+        ) : (
+          <div className="no-results">No medications found</div>
+        )}
       </div>
     </div>
   );

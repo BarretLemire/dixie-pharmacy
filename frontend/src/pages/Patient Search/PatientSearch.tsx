@@ -11,85 +11,74 @@ interface Patient {
   last_name: string;
 }
 
-
-
 const PatientSearch: React.FC = () => {
+  const navigate = useNavigate();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
   
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchPatients = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/patients");
         const data = await response.json();
         setPatients(data);
+        // Immediately filter patients after fetching
+        const results = data.filter((patient) =>
+          `${patient.first_name} ${patient.last_name}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        );
+        setFilteredPatients(results);
       } catch (error) {
         console.error("Error fetching patients:", error);
       }
     };
 
     fetchPatients();
-  }, []);
+  }, [searchQuery]);  // Adding searchQuery as a dependency
 
-  // Filter patients based on search query
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setFilteredPatients([]);
-      return;
-    }
-
-    const results = patients.filter((patient) =>
-      `${patient.first_name} ${patient.last_name}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-    setFilteredPatients(results);
-  }, [searchQuery, patients]);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
 
   return (
-    <div className="search-bar">
-      <div className="search">
+    <div className="patient-search-container">
+      <div className="search-bar">
         <TextField
           id="outlined-basic"
           variant="outlined"
           fullWidth
           label="Last Name"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleSearchChange}
         />
         <img
           className="icon"
-          loading="lazy"
-          alt=""
           src="/src/assets/search.svg"
+          alt="Search Icon"
         />
+        <Button 
+          variant="contained" 
+          className="custom-button"
+          onClick={() => navigate("/newpatient")}
+        >
+          Add Patient
+        </Button>
       </div>
-      <Button 
-        variant="contained" 
-        className="custom-button"
-        onClick={() => navigate("/newpatient")}
-      >
-        Add Patient
-      </Button>
-
-      {/* Render filtered patients */}
       <div className="search-results">
-        {filteredPatients.map((patient) => (
-          <div
-            key={patient.id}
-            className="search-result"
-            onClick={() => navigate(`/patientprofile/${patient.id}`)} // Navigate to patient profile
-          >
-            {patient.first_name} {patient.last_name}
-          </div>
-        ))}
+        {filteredPatients.length > 0 ? (
+          filteredPatients.map((patient) => (
+            <div key={patient.id} className="result-item" onClick={() => navigate(`/patientprofile/${patient.id}`)}>
+              {patient.first_name} {patient.last_name}
+            </div>
+          ))
+        ) : (
+          <div className="no-results">No patients found</div>
+        )}
       </div>
     </div>
   );
 };
-
 
 export default PatientSearch;
