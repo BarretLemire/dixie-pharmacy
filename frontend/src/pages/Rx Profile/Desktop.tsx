@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Desktop.css";
 
 interface Prescription {
@@ -22,7 +22,6 @@ interface Patient {
   last_name: string;
 }
 
-
 interface Medication {
   id: number;
   name: string;
@@ -30,9 +29,12 @@ interface Medication {
 
 const CurrentRx: React.FC = () => {
   const { rx_number } = useParams();
+  const navigate = useNavigate();
   const [prescription, setPrescription] = useState<Prescription | null>(null);
   const [patient, setPatient] = useState<Patient | null>(null);
   const [medication, setMedication] = useState<Medication | null>(null);
+  const [isEditing, setIsEditing] = useState(false); // Track editing state
+  const [editedPrescription, setEditedPrescription] = useState<Prescription | null>(null); // Edited prescription state
 
   useEffect(() => {
     const fetchPrescription = async () => {
@@ -42,6 +44,7 @@ const CurrentRx: React.FC = () => {
         );
         const data = await response.json();
         setPrescription(data);
+        setEditedPrescription(data); // Initialize edited prescription
 
         if (data.patient_id) {
           const patientResponse = await fetch(
@@ -67,14 +70,68 @@ const CurrentRx: React.FC = () => {
     }
   }, [rx_number]);
 
-  if (!prescription) {
+  if (!prescription || !editedPrescription) {
     return <div>Prescription not found</div>;
   }
 
   const patientFullName = patient
     ? `${patient.first_name} ${patient.last_name}`
     : "";
-  // const doctorFullName = doctor ? `${doctor.first_name} ${doctor.last_name}` : '';
+
+  // Handle field changes for editing
+  const handleFieldChange = (field: keyof Prescription, value: string | number) => {
+    setEditedPrescription((prev) => prev ? { ...prev, [field]: value } : null);
+  };
+
+  // Handle Save button click to update prescription
+  const handleSaveClick = async () => {
+    if (!editedPrescription) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/prescriptions/${rx_number}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedPrescription),
+      });
+
+      if (response.ok) {
+        alert("Prescription updated successfully!");
+        setPrescription(editedPrescription);
+        setIsEditing(false);
+      } else {
+        console.error("Failed to update prescription");
+      }
+    } catch (error) {
+      console.error("Error updating prescription:", error);
+    }
+  };
+
+  // Handle Edit button click
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  // Handle Delete button click
+  const handleDeleteClick = async () => {
+    if (!rx_number) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/prescriptions/${rx_number}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Prescription deleted successfully!");
+        navigate("/rxsearch"); // Navigate back to search page after deletion
+      } else {
+        console.error("Failed to delete prescription");
+      }
+    } catch (error) {
+      console.error("Error deleting prescription:", error);
+    }
+  };
 
   return (
     <div className="current-rx">
@@ -95,9 +152,10 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="medication"
-            value={prescription.rx_item_id || ""}
+            value={editedPrescription.rx_item_id || ""}
             placeholder="Medication Id"
-            readOnly
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("rx_item_id", parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -105,9 +163,10 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="doctor_name"
-            value={prescription.prescriber_id}
+            value={editedPrescription.prescriber_id}
             placeholder="Doctor Id"
-            readOnly
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("prescriber_id", parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -115,8 +174,9 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="quantity_written"
-            value={prescription.quantity}
-            readOnly
+            value={editedPrescription.quantity}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("quantity", parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -124,8 +184,9 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="quantity_dispensed"
-            value={prescription.quantity_dispensed}
-            readOnly
+            value={editedPrescription.quantity_dispensed}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("quantity_dispensed", parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -133,8 +194,9 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="refills"
-            value={prescription.refills}
-            readOnly
+            value={editedPrescription.refills}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("refills", parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -142,17 +204,19 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="tech_initials"
-            value={prescription.tech_initials}
-            readOnly
+            value={editedPrescription.tech_initials}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("tech_initials", e.target.value)}
           />
         </div>
         <div className="form-group">
           <label htmlFor="date_of_rx">Date of RX</label>
           <input
-            type="text"
+            type="date"
             id="date_of_rx"
-            value={prescription.prescribed_date}
-            readOnly
+            value={editedPrescription.prescribed_date}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("prescribed_date", e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -160,7 +224,7 @@ const CurrentRx: React.FC = () => {
           <input
             type="text"
             id="prescription_number"
-            value={prescription.rx_number}
+            value={editedPrescription.rx_number}
             readOnly
           />
         </div>
@@ -168,14 +232,19 @@ const CurrentRx: React.FC = () => {
           <label htmlFor="instructions">Instructions</label>
           <textarea
             id="instructions"
-            value={prescription.directions}
-            readOnly
+            value={editedPrescription.directions}
+            readOnly={!isEditing}
+            onChange={(e) => handleFieldChange("directions", e.target.value)}
           ></textarea>
         </div>
       </div>
       <div className="rx-actions">
-        <button className="delete">Delete</button>
-        <button className="edit">Edit</button>
+        {isEditing ? (
+          <button className="save" onClick={handleSaveClick}>Save</button>
+        ) : (
+          <button className="edit" onClick={handleEditClick}>Edit</button>
+        )}
+        <button className="delete" onClick={handleDeleteClick}>Delete</button>
         <button className="save">Save and Continue to Label</button>
       </div>
       <div className="rx-images">
@@ -187,15 +256,3 @@ const CurrentRx: React.FC = () => {
 };
 
 export default CurrentRx;
-
-// "patient_id": 1,
-//   "prescribed_date": "2024-08-15",
-//   "rx_item_id": 3,
-//   "quantity": 8,
-//   "refills": 6,
-//   "tech_initials": "djt",
-//   "rx_number": 5,
-//   "prescriber_id": 2,
-//   "directions": "one tablet by mouth daily",
-//   "quantity_dispensed": 8,
-//   "status": "pending"

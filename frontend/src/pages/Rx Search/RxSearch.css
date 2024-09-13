@@ -6,6 +6,7 @@
   background-color: #f2eefc; /* Optional: Add background color for better visibility */
   border-radius: 12px; /* Optional: Add rounded corners */
   margin-bottom: 20px; /* Adds space below the search bar */
+  margin-top: 20px
 }
 
 .search {

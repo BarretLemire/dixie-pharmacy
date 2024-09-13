@@ -22,6 +22,8 @@ const DrProfile: React.FC = () => {
   const { drId } = useParams<{ drId: string }>();
   const navigate = useNavigate();
   const [prescriber, setPrescriber] = useState<Prescriber | null>(null);
+  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+  const [editedPrescriber, setEditedPrescriber] = useState<Prescriber | null>(null); // Track edited prescriber details
 
   useEffect(() => {
     const fetchPrescribers = async () => {
@@ -31,10 +33,10 @@ const DrProfile: React.FC = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data: Prescriber[] = await response.json();
-        // Filter to find the prescriber with the matching ID
         const foundPrescriber = data.find(p => p.id.toString() === drId);
         if (foundPrescriber) {
           setPrescriber(foundPrescriber);
+          setEditedPrescriber(foundPrescriber); // Set edited prescriber to the fetched one
         } else {
           console.error("Prescriber not found");
           navigate('/drsearch'); // Redirect if not found
@@ -48,28 +50,72 @@ const DrProfile: React.FC = () => {
     fetchPrescribers();
   }, [drId, navigate]);
 
-  if (!prescriber) return <div>Loading...</div>; // Show loading or not found message
+  if (!prescriber || !editedPrescriber) return <div>Loading...</div>;
 
   const handleInputChange = (field: keyof Prescriber, value: string) => {
-    setPrescriber(prev => ({ ...prev!, [field]: value }));
+    setEditedPrescriber(prev => ({ ...prev!, [field]: value }));
   };
 
   const handleSave = async () => {
-    // Your PATCH request and handling here
+    if (!editedPrescriber) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/prescribers/${drId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedPrescriber),
+      });
+
+      if (response.ok) {
+        alert("Prescriber updated successfully!");
+        setPrescriber(editedPrescriber); // Update original prescriber state
+        setIsEditing(false); // Exit edit mode
+      } else {
+        console.error("Failed to update prescriber");
+      }
+    } catch (error) {
+      console.error("Error updating prescriber:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/prescribers/${drId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Prescriber deleted successfully!");
+        navigate("/drsearch"); // Navigate back to the search page
+      } else {
+        console.error("Failed to delete prescriber");
+      }
+    } catch (error) {
+      console.error("Error deleting prescriber:", error);
+    }
   };
 
   return (
     <div className="add-new-doctor-container">
       <header className="header">
-        <button className="cancel-button" onClick={() => navigate('/drsearch')}>
-          <img src={trashIcon} className="cancel-icon" alt="Cancel" />
-          Cancel
+        <button className="cancel-button" onClick={handleDelete}>
+          <img src={trashIcon} className="cancel-icon" alt="Delete" />
+          Delete
         </button>
         <h1 className="title">Prescriber Profile</h1>
-        <button className="save-button" onClick={handleSave}>
-          <img src={saveIcon} className="save-icon" alt="Save" />
-          Save
-        </button>
+        {isEditing ? (
+          <button className="save-button" onClick={handleSave}>
+            <img src={saveIcon} className="save-icon" alt="Save" />
+            Save
+          </button>
+        ) : (
+          <button className="save-button" onClick={() => setIsEditing(true)}>
+            <img src={saveIcon} className="save-icon" alt="Edit" />
+            Edit
+          </button>
+        )}
       </header>
       <form className="form">
         {Object.keys(prescriber).map((key) => (
@@ -77,7 +123,8 @@ const DrProfile: React.FC = () => {
             <label>{key.replace(/_/g, ' ')}</label>
             <input
               type="text"
-              value={(prescriber as any)[key]}
+              value={(editedPrescriber as any)[key]}
+              readOnly={!isEditing}
               onChange={(e) => handleInputChange(key as keyof Prescriber, e.target.value)}
             />
           </div>
